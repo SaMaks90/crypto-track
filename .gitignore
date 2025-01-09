@@ -14,12 +14,12 @@
 .env
 
 # Front-End
-./frontend/node_modules/
-./frontend/build/
-./frontend/README.md
+/frontend/node_modules/
+/frontend/build/
+/frontend/README.md
 
 # Back-End
-./backend/dist/
-./backend/build/
-./backend/node_modules/
-./backend/README.md
+/backend/dist/
+/backend/build/
+/backend/node_modules/
+/backend/README.md
