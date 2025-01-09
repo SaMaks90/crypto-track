@@ -52,7 +52,7 @@
 - TypeScript: для типізації компонентів.
 - Axios: для запитів до API.
 - Chart.js або Recharts: для побудови графіків.
-- Tailwind CSS або Material-UI: для швидкого створення інтерфейсу.
+- Styled Components;
 
 ### Back-End
 - NestJS: модульна структура для побудови API.
