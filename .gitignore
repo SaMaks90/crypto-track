@@ -1,5 +1,6 @@
 # Ignore folder .idea
 .idea/
+.DS_Store
 
 # Skip files
 !.idea/codeStyles/
