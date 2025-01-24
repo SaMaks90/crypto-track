@@ -1,6 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { UsersService } from "../users/users.service";
+import { JwtService } from "@nestjs/jwt";
+import { getPasswordHash } from "../../utils/hashing";
+import { isMathPassword } from "../../utils/hashing";
 
 @Injectable()
 export class AuthService {
@@ -13,9 +15,9 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<{ access_token: string }> {
-    const user = await this.usersService.findOne(email);
+    const user = await this.usersService.getUserByEmail({ email });
 
-    if (user?.password !== password) {
+    if (await isMathPassword(user?.password, password)) {
       throw new UnauthorizedException();
     }
 
@@ -26,7 +28,13 @@ export class AuthService {
     };
   }
 
-  async signUp(): Promise<{ access_token: string }> {
-    return { access_token: '' };
+  async signUp(signUpDto: Record<string, any>): Promise<Record<string, any>> {
+    const data = {
+      email: signUpDto.email,
+      password: await getPasswordHash(signUpDto.password),
+      updatedAt: new Date(),
+    };
+
+    return await this.usersService.createUser(data);
   }
 }

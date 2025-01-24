@@ -6,18 +6,17 @@ import {
   Body,
   Get,
   Request,
-  Logger,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { Public } from '../../common/decorators/public';
+} from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { Public } from "../../common/decorators/public";
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
   @Public()
-  @Post('login')
+  @Post("login")
   signIn(
     @Body() signInDto: Record<string, any>,
   ): Promise<{ access_token: string }> {
@@ -26,16 +25,13 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Public()
-  @Post('register')
-  signUp(
-    @Body() signUpDto: Record<string, any>,
-  ): Promise<{ access_token: string }> {
-    Logger.log(signUpDto);
-    return this.authService.signUp();
+  @Post("signup")
+  signUp(@Body() signUpDto: Record<string, any>): Promise<Record<string, any>> {
+    return this.authService.signUp(signUpDto);
   }
 
-  @Get('profile')
-  getProfile(@Request() req: any) {
+  @Get("profile")
+  getProfile(@Request() req: any): Record<string, any> {
     return req.user;
   }
 }

@@ -17,12 +17,10 @@
 # Front-End
 /frontend/node_modules/
 /frontend/build/
-/frontend/README.md
 /frontend/.env
 
 # Back-End
 /backend/dist/
 /backend/build/
 /backend/node_modules/
-/backend/README.md
 /backend/.env
