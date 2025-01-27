@@ -9,6 +9,7 @@ import { Request } from "express";
 import { Reflector } from "@nestjs/core";
 import { JWT_PUBLIC, JWT_SECRET } from "../../constants";
 import { UsersService } from "../../modules/users/users.service";
+import { IUserWithoutPassword } from "../../modules/users/interfaces/users.interface";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -39,9 +40,10 @@ export class AuthGuard implements CanActivate {
       let verifyUser = await this.jwtService.verifyAsync(token, {
         secret: JWT_SECRET,
       });
-      const user = await this.usersService.getUserByEmailWithoutPassword({
-        email: verifyUser.email,
-      });
+      const user: IUserWithoutPassword =
+        await this.usersService.getUserByEmailWithoutPassword({
+          email: verifyUser.email,
+        });
 
       request["user"] = { ...user, ...verifyUser };
     } catch {

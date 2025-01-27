@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "country" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "lastname" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "phoneNumber" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "surname" TEXT NOT NULL DEFAULT '';

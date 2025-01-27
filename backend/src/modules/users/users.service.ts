@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
-import { User, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { IUserWithoutPassword, IUser } from "./interfaces/users.interface";
 
 @Injectable()
 export class UsersService {
@@ -8,7 +9,7 @@ export class UsersService {
 
   async getUserByEmail({
     email,
-  }: Prisma.UserWhereUniqueInput): Promise<User | null> {
+  }: Prisma.UserWhereUniqueInput): Promise<IUser | null> {
     return this.prisma.user.findUnique({
       where: { email },
     });
@@ -16,7 +17,7 @@ export class UsersService {
 
   async getUserByEmailWithoutPassword({
     email,
-  }: Prisma.UserWhereUniqueInput): Promise<Omit<User, "password"> | null> {
+  }: Prisma.UserWhereUniqueInput): Promise<IUserWithoutPassword | null> {
     return this.prisma.user.findUnique({
       where: { email },
       omit: { password: true },
@@ -25,14 +26,14 @@ export class UsersService {
 
   async createUser(
     data: Prisma.UserCreateInput,
-  ): Promise<Omit<User, "password">> {
+  ): Promise<IUserWithoutPassword> {
     return this.prisma.user.create({ data, omit: { password: true } });
   }
 
   async updateUser(params: {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;
-  }): Promise<Omit<User, "password">> {
+  }): Promise<IUserWithoutPassword> {
     return this.prisma.user.update({
       data: {
         ...params.data,
@@ -45,11 +46,11 @@ export class UsersService {
 
   async deleteUser({
     id,
-  }: Prisma.UserWhereUniqueInput): Promise<Omit<User, "password">> {
+  }: Prisma.UserWhereUniqueInput): Promise<IUserWithoutPassword> {
     return this.prisma.user.delete({ where: { id }, omit: { password: true } });
   }
 
-  async getAllUsers(): Promise<Omit<User, "password">[]> {
+  async getAllUsers(): Promise<IUserWithoutPassword[]> {
     return this.prisma.user.findMany({ omit: { password: true } });
   }
 }

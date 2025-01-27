@@ -15,4 +15,8 @@ model User {
     email           String              @unique
     password        String
     verified        Boolean             @default(false)
+    lastname        String              @default("")
+    surname         String              @default("")
+    country         String              @default("")
+    phoneNumber     String              @default("")
 }
