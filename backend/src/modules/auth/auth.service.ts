@@ -8,7 +8,7 @@ import {
   IUser,
   IUserWithoutPassword,
 } from "../users/interfaces/users.interface";
-import { IAccessToken } from "./interfaces/auth.interface";
+import { IAccessTokenWithUser } from "./interfaces/auth.interface";
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(signInDto: SignInDto): Promise<IAccessToken> {
+  async signIn(signInDto: SignInDto): Promise<IAccessTokenWithUser> {
     const { email, password } = signInDto;
     const user: IUser = await this.usersService.getUserByEmail({ email });
 
@@ -29,12 +29,13 @@ export class AuthService {
 
     return {
       access_token: await this.jwtService.signAsync(payload),
+      user: await this.usersService.getUserByEmailWithoutPassword({ email }),
     };
   }
 
   async signUp(signUpDto: SignUpDto): Promise<IUserWithoutPassword> {
     const data = {
-      email: signUpDto.email,
+      ...signUpDto,
       password: await getPasswordHash(signUpDto.password),
       updatedAt: new Date(),
     };

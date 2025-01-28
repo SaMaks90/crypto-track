@@ -10,7 +10,10 @@ import {
 import { AuthService } from "./auth.service";
 import { Public } from "../../common/decorators/public";
 import { SignInDto, SignUpDto } from "./dto/auth.dto";
-import { IAccessToken, IRequestWithUser } from "./interfaces/auth.interface";
+import {
+  IAccessTokenWithUser,
+  IRequestWithUser,
+} from "./interfaces/auth.interface";
 import { IUserWithoutPassword } from "../users/interfaces/users.interface";
 
 @Controller("auth")
@@ -20,7 +23,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Public()
   @Post("login")
-  signIn(@Body() signInDto: SignInDto): Promise<IAccessToken> {
+  signIn(@Body() signInDto: SignInDto): Promise<IAccessTokenWithUser> {
     return this.authService.signIn(signInDto);
   }
 
