@@ -7,7 +7,7 @@
 #### POST Login
 - Url: /auth/login
 - Params: { "email": "", "password": "" }
-- Return: { "access_token": "" }
+- Return: { "access_token": "", "user": { user data } }
 
 #### GET Profile
 - Url: /auth/profile

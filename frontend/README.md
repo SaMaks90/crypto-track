@@ -1,3 +1,11 @@
+### To do in this week
+- Added routes public and private;
+- Added work redux with token (login, registration and profile);
+- Creating login component
+- 
+- Creating components login, registration, home page, private route dashboard and profile
+- Adding Layout for registered user and guest
+
 │   ├── assets/             # Статичні файли (зображення, іконки, шрифти)
 │   ├── components/         # Повторно використовувані компоненти
 │   ├── features/           # Функціональні модулі (портфоліо, авторизація тощо)
